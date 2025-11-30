@@ -1,9 +1,3 @@
-import React from 'react'
+const App = () => <h1>Our First Test</h1>;
 
-
-function App() {
-
-  return 
-}
-
-export default App
+export default App;

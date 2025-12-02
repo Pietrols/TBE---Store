@@ -2,14 +2,14 @@ import { useState } from "react";
 import UseProducts from "../api/products.jsx";
 import { UseCart } from "../context/UseCart.jsx";
 
-export default function Products() {
-  const { products, loading, error } = UseProducts();
-  const { AddToCart } = UseCart(); // Fixed: directly use the hook, matching the case
+export default function Products({ limit = null }) {
+  const { products, loading, error } = UseProducts(limit);
+  const { AddToCart } = UseCart();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
   if (loading) return <div>Loading products...</div>;
-  if (error) return <div>Error loading products: {error}</div>; // Removed .message since error is already a string
+  if (error) return <div>Error loading products: {error}</div>;
 
   const categories = [
     "all",
@@ -38,21 +38,17 @@ export default function Products() {
           />
         </div>
         <div className="categories">
-          {categories.map(
-            (
-              category // Fixed: was 'categories' should be 'category'
-            ) => (
-              <button
-                key={category}
-                className={`category-button ${
-                  selectedCategory === category ? "active" : ""
-                }`}
-                onClick={() => setSelectedCategory(category)}
-              >
-                {category}
-              </button>
-            )
-          )}
+          {categories.map((category) => (
+            <button
+              key={category}
+              className={`category-button ${
+                selectedCategory === category ? "active" : ""
+              }`}
+              onClick={() => setSelectedCategory(category)}
+            >
+              {category}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -61,14 +57,13 @@ export default function Products() {
           <div key={product.id} className="product-card">
             <div className="product-image">
               <img src={product.thumbnail} alt={product.title} />{" "}
-              {/* Changed from .image to .thumbnail - check API response */}
             </div>
             <div className="product-details">
               <h3 className="product-title">{product.title}</h3>
               <p className="product-price">${product.price.toFixed(2)}</p>
               <button
                 className="add-to-cart-button"
-                onClick={() => AddToCart(product)} // Fixed: capital A
+                onClick={() => AddToCart(product)}
               >
                 Add to Cart
               </button>

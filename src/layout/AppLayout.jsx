@@ -20,7 +20,7 @@ export default function AppLayout() {
       </main>
 
       <footer className="p-4 shadow mt-4 text-center">
-        <p>&copy; 2024 TBE Store. All rights reserved.</p>
+        <p>&copy; 2025 TBE Store. All rights reserved.</p>
       </footer>
     </>
   );

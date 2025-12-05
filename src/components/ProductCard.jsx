@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
-import { useCart } from "../context/UseCart";
+import { UseCart } from "../context/UseCart";
 import { ShoppingCart } from "lucide-react";
 
 export default function ProductCard({ product, circular = false }) {
-  const { addToCart } = useCart();
+  const { AddToCart } = UseCart();
 
   const handleAddToCart = (e) => {
-    e.preventDefault();
-    addToCart(product);
+    e.preventDefault(); // Prevent navigation if card is clickable
+    AddToCart(product);
   };
 
   return (

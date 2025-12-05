@@ -5,7 +5,7 @@ export default function SignUpModal({ onClose }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    password: ",",
+    password: "",
   });
   const [error, setError] = useState("");
 
@@ -14,38 +14,39 @@ export default function SignUpModal({ onClose }) {
     setError("");
 
     // Validation
-    if (!formData.name || !formData.email || formData.password) {
+    if (!formData.name || !formData.email || !formData.password) {
       setError("All fields are required");
       return;
     }
 
     if (formData.password.length < 6) {
       setError("Password must be at least 6 characters");
-    }
-
-    // get existing users from localStorage
-    const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
-
-    //check if email already exists
-    if (existingUsers.some((user) => user.email === formData.email)) {
-      setError("Email already exists");
       return;
     }
 
-    // add new user
+    // Get existing users from localStorage
+    const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
+
+    // Check if email already exists
+    if (existingUsers.some((user) => user.email === formData.email)) {
+      setError("Email already registered");
+      return;
+    }
+
+    // Add new user
     const newUser = {
       id: Date.now(),
       name: formData.name,
       email: formData.email,
-      password: formData.password,
-      createdAt: new Date().toDateString(),
+      password: formData.password, // In production, NEVER store plain passwords!
+      createdAt: new Date().toISOString(),
     };
 
     existingUsers.push(newUser);
     localStorage.setItem("users", JSON.stringify(existingUsers));
 
-    //set current user
-    localStorage.setItem("users", JSON.stringify(newUser));
+    // Set current user
+    localStorage.setItem("currentUser", JSON.stringify(newUser));
 
     alert("Account created successfully!");
     onClose();

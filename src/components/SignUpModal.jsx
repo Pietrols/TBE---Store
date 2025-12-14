@@ -38,7 +38,7 @@ export default function SignUpModal({ onClose }) {
       id: Date.now(),
       name: formData.name,
       email: formData.email,
-      password: formData.password, // In production, NEVER store plain passwords!
+      password: formData.password,
       createdAt: new Date().toISOString(),
     };
 
@@ -62,7 +62,7 @@ export default function SignUpModal({ onClose }) {
           <X size={24} />
         </button>
 
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">
+        <h2 className="text-2xl font-bold mb-6 text-gray-500">
           Create Account
         </h2>
 
@@ -83,7 +83,7 @@ export default function SignUpModal({ onClose }) {
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
               }
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2  bg-gray-300 text-grey-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="John Doe"
             />
           </div>
@@ -98,7 +98,7 @@ export default function SignUpModal({ onClose }) {
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 bg-gray-300 text-grey-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="john@example.com"
             />
           </div>
@@ -113,7 +113,7 @@ export default function SignUpModal({ onClose }) {
               onChange={(e) =>
                 setFormData({ ...formData, password: e.target.value })
               }
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 bg-gray-300 text-grey-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="••••••••"
             />
           </div>

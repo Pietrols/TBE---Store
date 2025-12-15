@@ -4,7 +4,7 @@ export default function About() {
   return (
     <div className="min-h-screen bg-gray-50 ">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-20 px-4">
+      <div className="bg-linear-to-r from-purple-600 to-blue-600 text-white py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl font-bold mb-6">About TBE Store</h1>
           <p className="text-xl opacity-90">
@@ -86,7 +86,7 @@ export default function About() {
         </div>
 
         {/* Stats Section */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-12 text-white">
+        <div className="bg-linear-to-r from-blue-600 to-purple-600 rounded-2xl p-12 text-white">
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div>
               <div className="text-5xl font-bold mb-2">10K+</div>

@@ -5,6 +5,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
 import LoginModal from "../components/LoginModal";
 import SignUpModal from "../components/SignUpModal";
+import Profile from "../pages/Profile";
 
 export default function AppLayout() {
   const { cartItems } = UseCart();
@@ -47,7 +48,6 @@ export default function AppLayout() {
               >
                 <Bell size={20} />
               </button>
-
               <Link
                 to="/cart"
                 className="relative hover:text-gray-300 transition-colors"
@@ -62,10 +62,17 @@ export default function AppLayout() {
 
               <Link
                 to="/profile"
-                className="hover:text-gray-300 flex transition-colors"
+                className="relative hover:text-gray-300 transition-colors"
               >
-                <User size={20} />
-                <span>{currentUser.name}</span>
+                {currentUser && currentUser.avatar ? (
+                  <img
+                    src={currentUser.avatar}
+                    alt={`${currentUser.name}'s avatar`}
+                    className="w-8 h-8 rounded-full object-cover border-2 border-white transition-opacity hover:opacity-80"
+                  />
+                ) : (
+                  <User size={24} />
+                )}
               </Link>
             </div>
           </div>

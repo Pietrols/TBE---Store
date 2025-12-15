@@ -31,7 +31,14 @@ export default function Profile() {
     cardName: "",
     expiryDate: "",
   });
+  const [shippingAddress, setShippingAddress] = useState({
+    address: currentUser?.shippingAddress?.address || "",
+    city: currentUser?.shippingAddress?.city || "",
+    zipCode: currentUser?.shippingAddress?.zipCode || "",
+    phone: currentUser?.shippingAddress?.phone || "",
+  });
 
+  const [isEditingAddress, setIsEditingAddress] = useState(false);
   const [showAddPayment, setShowAddPayment] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState(
     currentUser?.avatar || ""
@@ -78,9 +85,19 @@ export default function Profile() {
       email: formData.email,
       avatar: selectedAvatar,
       paymentMethods: paymentMethods,
+      shippingAddress: shippingAddress,
     });
     setIsEditing(false);
     alert("Profile updated successfully!");
+  };
+
+  const handleSaveAddress = (e) => {
+    e.preventDefault();
+    updateProfile({
+      shippingAddress: shippingAddress,
+    });
+    setIsEditingAddress(false);
+    alert("Shipping address updated!");
   };
 
   const handleAddPayment = (e) => {
@@ -113,7 +130,7 @@ export default function Profile() {
     <div className="min-h-screen bg-gray-200 py-12 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white mb-8">
+        <div className="bg-linear-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white mb-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-6">
               <img
@@ -430,6 +447,133 @@ export default function Profile() {
               ))
             )}
           </div>
+        </div>
+
+        {/* Shipping Address */}
+        <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-gray-600 flex items-center gap-2">
+              <Mail size={24} />
+              Shipping Address
+            </h2>
+            {!isEditingAddress && (
+              <button
+                onClick={() => setIsEditingAddress(true)}
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Edit Address
+              </button>
+            )}
+          </div>
+
+          {isEditingAddress ? (
+            <form onSubmit={handleSaveAddress} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-600 mb-1">
+                  Street Address
+                </label>
+                <input
+                  type="text"
+                  value={shippingAddress.address}
+                  onChange={(e) =>
+                    setShippingAddress({
+                      ...shippingAddress,
+                      address: e.target.value,
+                    })
+                  }
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-600 mb-1">
+                    City
+                  </label>
+                  <input
+                    type="text"
+                    value={shippingAddress.city}
+                    onChange={(e) =>
+                      setShippingAddress({
+                        ...shippingAddress,
+                        city: e.target.value,
+                      })
+                    }
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-600 mb-1">
+                    ZIP Code
+                  </label>
+                  <input
+                    type="text"
+                    value={shippingAddress.zipCode}
+                    onChange={(e) =>
+                      setShippingAddress({
+                        ...shippingAddress,
+                        zipCode: e.target.value,
+                      })
+                    }
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-600 mb-1">
+                    Phone
+                  </label>
+                  <input
+                    type="tel"
+                    value={shippingAddress.phone}
+                    onChange={(e) =>
+                      setShippingAddress({
+                        ...shippingAddress,
+                        phone: e.target.value,
+                      })
+                    }
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <button
+                  type="submit"
+                  className="flex-1 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+                >
+                  Save Address
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsEditingAddress(false);
+                    setShippingAddress(currentUser.shippingAddress || {});
+                  }}
+                  className="flex-1 bg-gray-300 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-400 transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          ) : (
+            <div className="space-y-2">
+              {shippingAddress.address ? (
+                <>
+                  <p className="text-gray-700">{shippingAddress.address}</p>
+                  <p className="text-gray-700">
+                    {shippingAddress.city}, {shippingAddress.zipCode}
+                  </p>
+                  <p className="text-gray-700">{shippingAddress.phone}</p>
+                </>
+              ) : (
+                <p className="text-gray-500">No shipping address added yet</p>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Danger Zone */}

@@ -5,7 +5,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
 import LoginModal from "../components/LoginModal";
 import SignUpModal from "../components/SignUpModal";
-import Profile from "../pages/Profile";
+import NotificationPanel from "../components/NotificationPanel";
 
 export default function AppLayout() {
   const { cartItems } = UseCart();
@@ -13,13 +13,14 @@ export default function AppLayout() {
 
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <div className="min-h-screen flex flex-col  transition-colors bg-gray-100">
       {/* Top Header */}
-      <div className="bg-gray-900 text-white py-2 px-4">
+      <div className="bg-gray-900 text-white pt-4 py-2 px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <Link to="/" className="text-xl font-bold">
             TBE STORE
@@ -28,14 +29,21 @@ export default function AppLayout() {
           <div className="flex items-center gap-6">
             {currentUser ? (
               <div className="flex items-center gap-4">
-                <button onClick={logout} className="hover:text-gray-300">
+                <button
+                  onClick={logout}
+                  className="hover:bg-indigo-600 
+               transition-colors duration-200 ease-in-out 
+               cursor-pointer font-bold py-2 px-2 rounded"
+                >
                   <LogOut size={20} />
                 </button>
               </div>
             ) : (
               <button
                 onClick={() => setShowLogin(true)}
-                className="hover:text-gray-300 transition-colors"
+                className="hover:bg-indigo-600 
+               transition-colors duration-200 ease-in-out 
+               cursor-pointer font-bold py-2 px-2 rounded"
               >
                 Sign up or Log in
               </button>
@@ -43,14 +51,22 @@ export default function AppLayout() {
 
             <div className="flex items-center gap-4">
               <button
-                className="hover:text-gray-300 transition-colors"
+                onClick={() => setShowNotifications(!showNotifications)}
+                className=" hover:bg-indigo-600 
+               transition-colors duration-200 ease-in-out 
+               cursor-pointer font-bold py-2 px-2 rounded"
                 aria-label="Notifications"
               >
                 <Bell size={20} />
+                {(cartItems.length > 0 || currentUser?.orders?.length > 0) && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 w-2 h-2 rounded-full" />
+                )}
               </button>
               <Link
                 to="/cart"
-                className="relative hover:text-gray-300 transition-colors"
+                className="hover:bg-indigo-600 
+               transition-colors duration-200 ease-in-out 
+               cursor-pointer font-bold py-2 px-4 rounded"
               >
                 <ShoppingCart size={20} />
                 {cartCount > 0 && (
@@ -62,7 +78,9 @@ export default function AppLayout() {
 
               <Link
                 to="/profile"
-                className="relative hover:text-gray-300 transition-colors"
+                className="hover:bg-indigo-600 
+               transition-colors duration-200 ease-in-out 
+               cursor-pointer font-bold  rounded"
               >
                 {currentUser && currentUser.avatar ? (
                   <img
@@ -218,6 +236,10 @@ export default function AppLayout() {
           }}
         />
       )}
+      <NotificationPanel
+        isOpen={showNotifications}
+        onClose={() => setShowNotifications(false)}
+      />
     </div>
   );
 }

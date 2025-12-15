@@ -9,6 +9,7 @@ import Contact from "./pages/Contact";
 import About from "./pages/About";
 import ProductDetails from "./pages/ProductDetails";
 import ErrorPage from "./pages/ErrorPage";
+import Profile from "./pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       { path: "deals", element: <Deals /> },
       { path: "contact", element: <Contact /> },
       { path: "about", element: <About /> },
+      { path: "profile", element: <Profile /> },
     ],
   },
 ]);

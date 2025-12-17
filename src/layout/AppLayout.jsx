@@ -52,9 +52,7 @@ export default function AppLayout() {
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setShowNotifications(!showNotifications)}
-                className=" hover:bg-indigo-600 
-               transition-colors duration-200 ease-in-out 
-               cursor-pointer font-bold py-2 px-2 rounded"
+                className="relative hover:bg-indigo-600..."
                 aria-label="Notifications"
               >
                 <Bell size={20} />
@@ -64,9 +62,7 @@ export default function AppLayout() {
               </button>
               <Link
                 to="/cart"
-                className="hover:bg-indigo-600 
-               transition-colors duration-200 ease-in-out 
-               cursor-pointer font-bold py-2 px-4 rounded"
+                className="relative hover:bg-indigo-600 transition-colors duration-200 ease-in-out cursor-pointer font-bold py-2 px-4 rounded"
               >
                 <ShoppingCart size={20} />
                 {cartCount > 0 && (

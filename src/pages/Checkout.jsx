@@ -36,6 +36,7 @@ export default function Checkout() {
   const handlePaymentSubmit = (e) => {
     e.preventDefault();
 
+    // Create order object
     const order = {
       id: Date.now(),
       date: new Date().toISOString(),
@@ -46,7 +47,9 @@ export default function Checkout() {
       paymentMethod: paymentMethod,
     };
 
+    // Simulate payment processing
     setTimeout(() => {
+      // Save order to localStorage
       if (currentUser) {
         const users = JSON.parse(localStorage.getItem("users") || "[]");
         const updatedUsers = users.map((user) => {
@@ -81,10 +84,15 @@ export default function Checkout() {
 
   if (cartItems.length === 0 && !orderComplete) {
     return (
-      <div>
-        <div>
-          <p>Your cart is empty</p>
-          <button onClick={() => navigate("/shop")}>Continue Shopping</button>
+      <div className="min-h-screen  flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-xl text-gray-600  mb-4">Your cart is empty</p>
+          <button
+            onClick={() => navigate("/shop")}
+            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700"
+          >
+            Continue Shopping
+          </button>
         </div>
       </div>
     );
@@ -92,51 +100,82 @@ export default function Checkout() {
 
   if (orderComplete) {
     return (
-      <div>
-        <div>
-          <div>
-            <div>
-              <CheckCircle size={64} />
+      <div className="min-h-screen  flex items-center justify-center px-4">
+        <div className="bg-white  rounded-2xl p-12 text-center max-w-md">
+          <div className="flex justify-center mb-6">
+            <div className="bg-green-100  p-4 rounded-full">
+              <CheckCircle
+                size={64}
+                className="text-green-600 dark:text-green-300"
+              />
             </div>
           </div>
-          <h2>Order Successful!</h2>
-          <p>Thank you for your purchase. Your order has been confirmed.</p>
-          <p>Redirecting to home...</p>
+          <h2 className="text-3xl font-bold text-gray-600  mb-4">
+            Order Successful!
+          </h2>
+          <p className="text-gray-600  mb-6">
+            Thank you for your purchase. Your order has been confirmed.
+          </p>
+          <p className="text-sm text-gray-500 ">Redirecting to home...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div>
-      <div>
-        <h1>Checkout</h1>
+    <div className="min-h-screen bg-gray-200  py-12 px-4">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-4xl font-bold text-gray-600 mb-8">Checkout</h1>
 
         {/* Progress Steps */}
-        <div>
-          <div>
-            <div>
-              <div>1</div>
-              <div />
-              <div>2</div>
+        <div className="mb-12">
+          <div className="flex items-center justify-center">
+            <div className="flex items-center">
+              <div
+                className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                  step >= 1
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-300 text-gray-600"
+                }`}
+              >
+                1
+              </div>
+              <div
+                className={`w-32 h-1 ${
+                  step >= 2 ? "bg-blue-600" : "bg-gray-300"
+                }`}
+              />
+              <div
+                className={`flex items-center justify-center w-10 h-10 rounded-full ${
+                  step >= 2
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-300 text-gray-600"
+                }`}
+              >
+                2
+              </div>
             </div>
           </div>
-          <div>
-            <span>Shipping</span>
-            <span>Payment</span>
+          <div className="flex justify-center mt-2 gap-24">
+            <span className="text-sm text-gray-600 ">Shipping</span>
+            <span className="text-sm text-gray-600">Payment</span>
           </div>
         </div>
 
-        <div>
+        <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Content */}
-          <div>
+          <div className="lg:col-span-2">
             {step === 1 ? (
-              <div>
-                <h2>Shipping Information</h2>
-                <form onSubmit={handleShippingSubmit}>
-                  <div>
+              <div className="bg-white rounded-2xl p-8 shadow-lg">
+                <h2 className="text-2xl font-bold mb-6 text-gray-600 ">
+                  Shipping Information
+                </h2>
+                <form onSubmit={handleShippingSubmit} className="space-y-4">
+                  <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label>Full Name</label>
+                      <label className="block text-sm font-medium text-gray-600  mb-1">
+                        Full Name
+                      </label>
                       <input
                         type="text"
                         required
@@ -147,10 +186,13 @@ export default function Checkout() {
                             fullName: e.target.value,
                           })
                         }
+                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                     <div>
-                      <label>Email</label>
+                      <label className="block text-sm font-medium text-gray-600  mb-1">
+                        Email
+                      </label>
                       <input
                         type="email"
                         required
@@ -161,12 +203,15 @@ export default function Checkout() {
                             email: e.target.value,
                           })
                         }
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label>Address</label>
+                    <label className="block text-sm font-medium text-gray-600  mb-1">
+                      Address
+                    </label>
                     <input
                       type="text"
                       required
@@ -177,12 +222,15 @@ export default function Checkout() {
                           address: e.target.value,
                         })
                       }
+                      className="w-full px-4 py-3 border border-gray-300  rounded-lg focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
 
-                  <div>
+                  <div className="grid md:grid-cols-3 gap-4">
                     <div>
-                      <label>City</label>
+                      <label className="block text-sm font-medium text-gray-600 mb-1">
+                        City
+                      </label>
                       <input
                         type="text"
                         required
@@ -193,10 +241,13 @@ export default function Checkout() {
                             city: e.target.value,
                           })
                         }
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                     <div>
-                      <label>ZIP Code</label>
+                      <label className="block text-sm font-medium text-gray-600  mb-1">
+                        ZIP Code
+                      </label>
                       <input
                         type="text"
                         required
@@ -207,10 +258,13 @@ export default function Checkout() {
                             zipCode: e.target.value,
                           })
                         }
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                     <div>
-                      <label>Phone</label>
+                      <label className="block text-sm font-medium text-gray-600  mb-1">
+                        Phone
+                      </label>
                       <input
                         type="tel"
                         required
@@ -221,49 +275,74 @@ export default function Checkout() {
                             phone: e.target.value,
                           })
                         }
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                   </div>
 
-                  <button type="submit">Continue to Payment</button>
+                  <button
+                    type="submit"
+                    className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors mt-6"
+                  >
+                    Continue to Payment
+                  </button>
                 </form>
               </div>
             ) : (
-              <div>
-                <h2>Payment Method</h2>
+              <div className="bg-white rounded-2xl p-8 shadow-lg">
+                <h2 className="text-2xl font-bold mb-6 text-gray-600 ">
+                  Payment Method
+                </h2>
 
                 {/* Payment Method Selection */}
-                <div>
+                <div className="grid md:grid-cols-3 gap-4 mb-6">
                   <button
                     type="button"
                     onClick={() => setPaymentMethod("card")}
+                    className={`p-4 border-2 rounded-lg flex flex-col items-center gap-2 transition-colors ${
+                      paymentMethod === "card"
+                        ? "border-blue-300 bg-blue-50 "
+                        : "border-gray-300 "
+                    }`}
                   >
                     <CreditCard size={32} />
-                    <span>Credit Card</span>
+                    <span className="font-medium ">Credit Card</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setPaymentMethod("mobile")}
+                    className={`p-4 border-2 rounded-lg flex flex-col items-center gap-2 transition-colors ${
+                      paymentMethod === "mobile"
+                        ? "border-blue-600 bg-blue-50 "
+                        : "border-gray-300 "
+                    }`}
                   >
                     <Smartphone size={32} />
-                    <span>Mobile Money</span>
+                    <span className="font-medium ">Mobile Money</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setPaymentMethod("bank")}
+                    className={`p-4 border-2 rounded-lg flex flex-col items-center gap-2 transition-colors ${
+                      paymentMethod === "bank"
+                        ? "border-blue-600 bg-blue-50 "
+                        : "border-gray-300 "
+                    }`}
                   >
                     <Building size={32} />
-                    <span>Bank Transfer</span>
+                    <span className="font-medium ">Bank Transfer</span>
                   </button>
                 </div>
 
-                <form onSubmit={handlePaymentSubmit}>
+                <form onSubmit={handlePaymentSubmit} className="space-y-4">
                   {paymentMethod === "card" && (
                     <>
                       <div>
-                        <label>Card Number</label>
+                        <label className="block text-sm font-medium text-gray-600 mb-1">
+                          Card Number
+                        </label>
                         <input
                           type="text"
                           required
@@ -275,11 +354,14 @@ export default function Checkout() {
                               cardNumber: e.target.value,
                             })
                           }
+                          className="w-full px-4 py-3 border border-gray-300  rounded-lg focus:ring-2 focus:ring-blue-500"
                         />
                       </div>
 
                       <div>
-                        <label>Cardholder Name</label>
+                        <label className="block text-sm font-medium text-gray-600  mb-1">
+                          Cardholder Name
+                        </label>
                         <input
                           type="text"
                           required
@@ -290,12 +372,15 @@ export default function Checkout() {
                               cardName: e.target.value,
                             })
                           }
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                         />
                       </div>
 
-                      <div>
+                      <div className="grid md:grid-cols-2 gap-4">
                         <div>
-                          <label>Expiry Date</label>
+                          <label className="block text-sm font-medium text-gray-600  mb-1">
+                            Expiry Date
+                          </label>
                           <input
                             type="text"
                             required
@@ -307,10 +392,13 @@ export default function Checkout() {
                                 expiryDate: e.target.value,
                               })
                             }
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                           />
                         </div>
                         <div>
-                          <label>CVV</label>
+                          <label className="block text-sm font-medium text-gray-600  mb-1">
+                            CVV
+                          </label>
                           <input
                             type="text"
                             required
@@ -322,6 +410,7 @@ export default function Checkout() {
                                 cvv: e.target.value,
                               })
                             }
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                           />
                         </div>
                       </div>
@@ -329,26 +418,46 @@ export default function Checkout() {
                   )}
 
                   {paymentMethod === "mobile" && (
-                    <div>
-                      <Smartphone size={64} />
-                      <p>You will receive payment instructions via SMS</p>
+                    <div className="text-center py-8">
+                      <Smartphone
+                        size={64}
+                        className="mx-auto mb-4 text-blue-600"
+                      />
+                      <p className="text-gray-600 dark:text-gray-400">
+                        You will receive payment instructions via SMS
+                      </p>
                     </div>
                   )}
 
                   {paymentMethod === "bank" && (
-                    <div>
-                      <h3>Bank Details:</h3>
-                      <p>Bank: TBE Bank</p>
-                      <p>Account: 1234567890</p>
-                      <p>Reference: Your Order ID</p>
+                    <div className="bg-gray-50  p-6 rounded-lg">
+                      <h3 className="font-semibold mb-4 ">Bank Details:</h3>
+                      <p className="text-sm text-gray-600  mb-2">
+                        Bank: TBE Bank
+                      </p>
+                      <p className="text-sm text-gray-600  mb-2">
+                        Account: 1234567890
+                      </p>
+                      <p className="text-sm text-gray-600 ">
+                        Reference: Your Order ID
+                      </p>
                     </div>
                   )}
 
-                  <div>
-                    <button type="button" onClick={() => setStep(1)}>
+                  <div className="flex gap-4 mt-6">
+                    <button
+                      type="button"
+                      onClick={() => setStep(1)}
+                      className="flex-1 bg-gray-600  text-gray-100  py-3 rounded-lg font-semibold hover:bg-gray-400 transition-colors"
+                    >
                       Back
                     </button>
-                    <button type="submit">Place Order</button>
+                    <button
+                      type="submit"
+                      className="flex-1 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+                    >
+                      Place Order
+                    </button>
                   </div>
                 </form>
               </div>
@@ -356,16 +465,22 @@ export default function Checkout() {
           </div>
 
           {/* Order Summary */}
-          <div>
-            <div>
-              <h3>Order Summary</h3>
-              <div>
+          <div className="lg:col-span-1">
+            <div className="bg-white  rounded-2xl p-6 shadow-lg sticky top-4">
+              <h3 className="text-xl font-bold mb-4 text-gray-600 ">
+                Order Summary
+              </h3>
+              <div className="space-y-3 mb-6">
                 {cartItems.map((item) => (
-                  <div key={item.id}>
-                    <img src={item.thumbnail} alt={item.title} />
-                    <div>
-                      <p>{item.title}</p>
-                      <p>
+                  <div key={item.id} className="flex gap-3">
+                    <img
+                      src={item.thumbnail}
+                      alt={item.title}
+                      className="w-16 h-16 object-cover rounded"
+                    />
+                    <div className="flex-1">
+                      <p className="font-medium text-sm ">{item.title}</p>
+                      <p className="text-sm text-gray-600 ">
                         ${item.price} x {item.quantity}
                       </p>
                     </div>
@@ -373,22 +488,26 @@ export default function Checkout() {
                 ))}
               </div>
 
-              <div>
-                <div>
-                  <span>Subtotal</span>
-                  <span>${getCartTotal().toFixed(2)}</span>
+              <div className="border-t  pt-4 space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600 ">Subtotal</span>
+                  <span className="font-medium ">
+                    ${getCartTotal().toFixed(2)}
+                  </span>
                 </div>
-                <div>
-                  <span>Shipping</span>
-                  <span>$10.00</span>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600 ">Shipping</span>
+                  <span className="font-medium ">$10.00</span>
                 </div>
-                <div>
-                  <span>Tax</span>
-                  <span>${(getCartTotal() * 0.1).toFixed(2)}</span>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600 ">Tax</span>
+                  <span className="font-medium ">
+                    ${(getCartTotal() * 0.1).toFixed(2)}
+                  </span>
                 </div>
-                <div>
-                  <span>Total</span>
-                  <span>
+                <div className="flex justify-between text-lg font-bold pt-2 border-t dark:border-gray-700">
+                  <span className="text-gray-900">Total</span>
+                  <span className="text-blue-600 ">
                     ${(getCartTotal() + 10 + getCartTotal() * 0.1).toFixed(2)}
                   </span>
                 </div>

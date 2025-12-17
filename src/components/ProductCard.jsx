@@ -41,7 +41,7 @@ export default function ProductCard({ product, circular = false }) {
 
       {!circular && (
         <div className="p-4">
-          <h3 className="font-semibold text-gray-800 truncate group-hover:text-blue-600 transition-colors">
+          <h3 className="font-semibold text-gray-600 truncate group-hover:text-blue-600 transition-colors">
             {product.title}
           </h3>
           <p className="text-xl font-bold text-gray-900 mt-2">

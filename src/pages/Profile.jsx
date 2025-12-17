@@ -16,6 +16,7 @@ export default function Profile() {
   const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
+
   const [formData, setFormData] = useState({
     name: currentUser?.name || "",
     email: currentUser?.email || "",
@@ -31,6 +32,7 @@ export default function Profile() {
     cardName: "",
     expiryDate: "",
   });
+
   const [shippingAddress, setShippingAddress] = useState({
     address: currentUser?.shippingAddress?.address || "",
     city: currentUser?.shippingAddress?.city || "",
@@ -107,7 +109,14 @@ export default function Profile() {
       ...newPayment,
       lastFour: newPayment.cardNumber.slice(-4),
     };
-    setPaymentMethods([...paymentMethods, payment]);
+    const updatedPayments = [...paymentMethods, payment];
+    setPaymentMethods(updatedPayments);
+
+    // Immediately persist to currentUser
+    updateProfile({
+      paymentMethods: updatedPayments,
+    });
+
     setNewPayment({
       type: "card",
       cardNumber: "",
@@ -115,10 +124,18 @@ export default function Profile() {
       expiryDate: "",
     });
     setShowAddPayment(false);
+    alert("Payment method added successfully!");
   };
 
   const handleRemovePayment = (id) => {
-    setPaymentMethods(paymentMethods.filter((p) => p.id !== id));
+    const updatedPayments = paymentMethods.filter((p) => p.id !== id);
+    setPaymentMethods(updatedPayments);
+
+    // Immediately persist to currentUser
+    updateProfile({
+      paymentMethods: updatedPayments,
+    });
+    alert("Payment method removed!");
   };
 
   const handleLogout = () => {
@@ -158,9 +175,9 @@ export default function Profile() {
         </div>
 
         {/* Profile Information */}
-        <div className="bg-white  border-gray-700 rounded-2xl p-8 shadow-lg mb-8">
+        <div className="bg-white border-gray-700 rounded-2xl p-8 shadow-lg mb-8">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-600  flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-gray-600 flex items-center gap-2">
               <User size={24} />
               Profile Information
             </h2>
@@ -178,7 +195,7 @@ export default function Profile() {
             <form onSubmit={handleSaveProfile} className="space-y-6">
               {/* Avatar Selection */}
               <div>
-                <label className="block text-sm font-medium text-gray-600  mb-3">
+                <label className="block text-sm font-medium text-gray-600 mb-3">
                   Choose Avatar
                 </label>
                 <div className="grid grid-cols-6 gap-4">
@@ -192,7 +209,7 @@ export default function Profile() {
                         className={`relative rounded-full overflow-hidden border-4 transition-all ${
                           selectedAvatar === avatarUrl
                             ? "border-blue-600 scale-110"
-                            : "border-gray-400  hover:border-blue-400"
+                            : "border-gray-400 hover:border-blue-400"
                         }`}
                       >
                         <img
@@ -213,7 +230,7 @@ export default function Profile() {
 
               {/* Name */}
               <div>
-                <label className="block text-sm font-medium text-gray-600  mb-1">
+                <label className="block text-sm font-medium text-gray-600 mb-1">
                   Full Name
                 </label>
                 <input
@@ -222,7 +239,7 @@ export default function Profile() {
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  className="w-full px-4 py-3 border border-gray-300 xt-white rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
@@ -238,7 +255,7 @@ export default function Profile() {
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
-                  className="w-full px-4 py-3 border border-gray-300 s rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
@@ -279,10 +296,10 @@ export default function Profile() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-4rounded-lg">
+              <div className="flex items-center gap-3 p-4 rounded-lg">
                 <Mail className="text-blue-600" size={24} />
                 <div>
-                  <p className="text-sm text-gray-600 ">Email</p>
+                  <p className="text-sm text-gray-600">Email</p>
                   <p className="font-semibold text-gray-600">
                     {currentUser.email}
                   </p>
@@ -293,7 +310,7 @@ export default function Profile() {
         </div>
 
         {/* Payment Methods */}
-        <div className="bg-white border-gray-700 rounded-2xl p-8 shadow-lg">
+        <div className="bg-white border-gray-700 rounded-2xl p-8 shadow-lg mb-8">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-gray-600 flex items-center gap-2">
               <CreditCard size={24} />
@@ -311,10 +328,10 @@ export default function Profile() {
           {showAddPayment && (
             <form
               onSubmit={handleAddPayment}
-              className="mb-6 p-6  rounded-lg space-y-4"
+              className="mb-6 p-6 rounded-lg space-y-4"
             >
               <div>
-                <label className="block text-sm font-medium text-gray-600  mb-1">
+                <label className="block text-sm font-medium text-gray-600 mb-1">
                   Payment Type
                 </label>
                 <select
@@ -322,7 +339,7 @@ export default function Profile() {
                   onChange={(e) =>
                     setNewPayment({ ...newPayment, type: e.target.value })
                   }
-                  className="w-full px-4 py-3 border border-gray-300  text-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 border border-gray-300 text-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="card">Credit/Debit Card</option>
                   <option value="mobile">Mobile Money</option>
@@ -353,7 +370,7 @@ export default function Profile() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-600  mb-1">
+                    <label className="block text-sm font-medium text-gray-600 mb-1">
                       Cardholder Name
                     </label>
                     <input
@@ -371,7 +388,7 @@ export default function Profile() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-600  mb-1">
+                    <label className="block text-sm font-medium text-gray-600 mb-1">
                       Expiry Date
                     </label>
                     <input
@@ -414,7 +431,7 @@ export default function Profile() {
                   className="flex items-center justify-between p-4 bg-gray-50 text-gray-600 rounded-lg"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="bg-blue-100  p-3 rounded-lg">
+                    <div className="bg-blue-100 p-3 rounded-lg">
                       <CreditCard className="text-blue-600" size={24} />
                     </div>
                     <div>
@@ -427,10 +444,10 @@ export default function Profile() {
                       </p>
                       {payment.type === "card" && (
                         <>
-                          <p className="text-sm text-gray-600 ">
+                          <p className="text-sm text-gray-600">
                             •••• {payment.lastFour}
                           </p>
-                          <p className="text-sm text-gray-600 ">
+                          <p className="text-sm text-gray-600">
                             {payment.cardName} • Expires {payment.expiryDate}
                           </p>
                         </>
@@ -439,7 +456,7 @@ export default function Profile() {
                   </div>
                   <button
                     onClick={() => handleRemovePayment(payment.id)}
-                    className="text-red-600 hover:text-red-700  p-2"
+                    className="text-red-600 hover:text-red-700 p-2"
                   >
                     <Trash2 size={20} />
                   </button>
@@ -578,8 +595,8 @@ export default function Profile() {
 
         {/* Danger Zone */}
         <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-800 rounded-2xl p-8 mt-8">
-          <h3 className="text-xl font-bold text-red-600  mb-4">Danger Zone</h3>
-          <p className="text-gray-600  mb-4">
+          <h3 className="text-xl font-bold text-red-600 mb-4">Danger Zone</h3>
+          <p className="text-gray-600 mb-4">
             Once you delete your account, there is no going back. Please be
             certain.
           </p>

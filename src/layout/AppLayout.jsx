@@ -19,135 +19,138 @@ export default function AppLayout() {
 
   return (
     <div className="min-h-screen flex flex-col  transition-colors bg-gray-100">
-      {/* Top Header */}
-      <div className="bg-gray-900 text-white pt-4 py-2 px-4">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link to="/" className="text-xl font-bold">
-            TBE STORE
-          </Link>
+      <div className="sticky top-0 z-50">
+        {/* Top Header */}
+        <div className="bg-gray-900 text-white pt-4 py-2 px-4">
+          <div className="max-w-7xl mx-auto flex justify-between items-center">
+            <Link to="/" className="text-xl font-bold">
+              TBE STORE
+            </Link>
 
-          <div className="flex items-center gap-6">
-            {currentUser ? (
-              <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6">
+              {currentUser ? (
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={logout}
+                    className="hover:bg-indigo-600 
+               transition-colors duration-200 ease-in-out 
+               cursor-pointer font-bold py-2 px-2 rounded"
+                  >
+                    <LogOut size={20} />
+                  </button>
+                </div>
+              ) : (
                 <button
-                  onClick={logout}
+                  onClick={() => setShowLogin(true)}
                   className="hover:bg-indigo-600 
                transition-colors duration-200 ease-in-out 
                cursor-pointer font-bold py-2 px-2 rounded"
                 >
-                  <LogOut size={20} />
+                  Sign up or Log in
                 </button>
-              </div>
-            ) : (
-              <button
-                onClick={() => setShowLogin(true)}
-                className="hover:bg-indigo-600 
-               transition-colors duration-200 ease-in-out 
-               cursor-pointer font-bold py-2 px-2 rounded"
-              >
-                Sign up or Log in
-              </button>
-            )}
+              )}
 
-            <div className="flex items-center gap-4">
-              <button
-                onClick={() => setShowNotifications(!showNotifications)}
-                className="relative hover:bg-indigo-600..."
-                aria-label="Notifications"
-              >
-                <Bell size={20} />
-                {(cartItems.length > 0 || currentUser?.orders?.length > 0) && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 w-2 h-2 rounded-full" />
-                )}
-              </button>
-              <Link
-                to="/cart"
-                className="relative hover:bg-indigo-600 transition-colors duration-200 ease-in-out cursor-pointer font-bold py-2 px-4 rounded"
-              >
-                <ShoppingCart size={20} />
-                {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {cartCount}
-                  </span>
-                )}
-              </Link>
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => setShowNotifications(!showNotifications)}
+                  className="relative hover:bg-indigo-600..."
+                  aria-label="Notifications"
+                >
+                  <Bell size={20} />
+                  {(cartItems.length > 0 ||
+                    currentUser?.orders?.length > 0) && (
+                    <span className="absolute -top-1 -right-1 bg-red-500 w-2 h-2 rounded-full" />
+                  )}
+                </button>
+                <Link
+                  to="/cart"
+                  className="relative hover:bg-indigo-600 transition-colors duration-200 ease-in-out cursor-pointer font-bold py-2 px-4 rounded"
+                >
+                  <ShoppingCart size={20} />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                      {cartCount}
+                    </span>
+                  )}
+                </Link>
 
-              <Link
-                to="/profile"
-                className="hover:bg-indigo-600 
+                <Link
+                  to="/profile"
+                  className="hover:bg-indigo-600 
                transition-colors duration-200 ease-in-out 
                cursor-pointer font-bold  rounded"
-              >
-                {currentUser && currentUser.avatar ? (
-                  <img
-                    src={currentUser.avatar}
-                    alt={`${currentUser.name}'s avatar`}
-                    className="w-8 h-8 rounded-full object-cover border-2 border-white transition-opacity hover:opacity-80"
-                  />
-                ) : (
-                  <User size={24} />
-                )}
-              </Link>
+                >
+                  {currentUser && currentUser.avatar ? (
+                    <img
+                      src={currentUser.avatar}
+                      alt={`${currentUser.name}'s avatar`}
+                      className="w-8 h-8 rounded-full object-cover border-2 border-white transition-opacity hover:opacity-80"
+                    />
+                  ) : (
+                    <User size={24} />
+                  )}
+                </Link>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="bg-gray-900 shadow-md py-4 px-4">
-        <div className="max-w-7xl mx-auto flex justify-center">
-          <div className="flex w-full max-w-3xl">
-            <select className="border border-gray-300  rounded-l-md px-4 py-2  bg-white text-gray-900 font-normal textfocus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option>All Categories</option>
-              <option>Electronics</option>
-              <option>Fashion</option>
-              <option>Home</option>
-            </select>
-            <input
-              type="text"
-              placeholder="Search for anything..."
-              className="flex-1 border-t border-b  px-4 py-2 text-gray-900 font-normal bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button className="bg-blue-500 text-white px-8 py-2 rounded-r-md hover:bg-blue-700 transition-colors">
-              Search
-            </button>
+        <div className="bg-gray-900 shadow-md py-4 px-4">
+          <div className="max-w-7xl mx-auto flex justify-center">
+            <div className="flex w-full max-w-3xl">
+              <select className="border border-gray-300  rounded-l-md px-4 py-2  bg-white text-gray-900 font-normal textfocus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option>All Categories</option>
+                <option>Electronics</option>
+                <option>Fashion</option>
+                <option>Home</option>
+              </select>
+              <input
+                type="text"
+                placeholder="Search for anything..."
+                className="flex-1 border-t border-b  px-4 py-2 text-gray-900 font-normal bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <button className="bg-blue-500 text-white px-8 py-2 rounded-r-md hover:bg-blue-700 transition-colors">
+                Search
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <nav className="bg-gray-900  py-3 px-4 border-b">
-        <div className="max-w-7xl mx-auto flex gap-6">
-          <Link
-            to="/"
-            className=" text-white hover:text-blue-400 transition-colors"
-          >
-            Home
-          </Link>
-          <Link
-            to="/shop"
-            className="text-white hover:text-blue-400 transition-colors"
-          >
-            Shop
-          </Link>
-          <Link
-            to="/deals"
-            className="hover:text-blue-400 text-white transition-colors"
-          >
-            Deals
-          </Link>
-          <Link
-            to="/about"
-            className="text-white hover:text-blue-400 transition-colors"
-          >
-            About
-          </Link>
-          <Link
-            to="/contact"
-            className="text-white hover:text-blue-400 transition-colors"
-          >
-            Contact
-          </Link>
-        </div>
-      </nav>
+        <nav className="bg-gray-900  py-3 px-4 border-b">
+          <div className="max-w-7xl mx-auto flex gap-6">
+            <Link
+              to="/"
+              className=" text-white hover:text-blue-400 transition-colors"
+            >
+              Home
+            </Link>
+            <Link
+              to="/shop"
+              className="text-white hover:text-blue-400 transition-colors"
+            >
+              Shop
+            </Link>
+            <Link
+              to="/deals"
+              className="hover:text-blue-400 text-white transition-colors"
+            >
+              Deals
+            </Link>
+            <Link
+              to="/about"
+              className="text-white hover:text-blue-400 transition-colors"
+            >
+              About
+            </Link>
+            <Link
+              to="/contact"
+              className="text-white hover:text-blue-400 transition-colors"
+            >
+              Contact
+            </Link>
+          </div>
+        </nav>
+      </div>
 
       <main className="flex-1">
         <Outlet />

@@ -4,7 +4,7 @@ import { CartContext } from "./index.jsx";
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
 
-  const AddToCart = (product) => {
+  const addToCart = (product) => {
     setCartItems((currentItems) => {
       const existingItem = currentItems.find((item) => item.id === product.id);
       if (existingItem) {
@@ -57,7 +57,7 @@ export function CartProvider({ children }) {
     <CartContext.Provider
       value={{
         cartItems,
-        AddToCart,
+        addToCart,
         removeFromCart,
         incrementQuantity,
         decrementQuantity,

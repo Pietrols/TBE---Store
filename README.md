@@ -8,7 +8,7 @@ This project demonstrates comprehensive frontend development capabilities throug
 
 ## Features
 
-### 🛒 Shopping Experience
+### Shopping Experience
 
 - **Product Browsing**: Browse 200+ products with detailed information
 - **Advanced Search**: Real-time search across product names, descriptions, and brands
@@ -42,7 +42,7 @@ This project demonstrates comprehensive frontend development capabilities throug
 - **Optimized Performance**: Lazy loading and efficient re-renders
 - **Component Architecture**: Modular, reusable component structure
 
-## 🚀 Tech Stack
+## Tech Stack
 
 - **Framework**: React 19
 - **Styling**: Tailwind CSS
@@ -174,13 +174,13 @@ Full cart management with quantity controls and checkout flow
 
 Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/Pietrols/TBE---Store/issues).
 
-## 👨‍💻 Author
+## Author
 
 **Peter Kabamba**
 
 - GitHub: [@pietrols](https://github.com/Pietrols)
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [Chingu](https://chingu.io) for the project inspiration
 - [DummyJSON](https://dummyjson.com) for the product API

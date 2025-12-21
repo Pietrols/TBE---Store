@@ -73,7 +73,7 @@ export default function Home() {
         <h2 className="text-3xl font-bold mb-6 text-gray-600">Trending</h2>
         <div className="flex gap-6 overflow-x-auto pb-4">
           {trendingProducts.slice(0, 6).map((product) => (
-            <div key={product.id} className="shrink-0">
+            <div key={product.id}>
               <ProductCard product={product} circular={true} />
               <p className="text-center mt-2 text-sm font-medium truncate w-40">
                 {product.title}

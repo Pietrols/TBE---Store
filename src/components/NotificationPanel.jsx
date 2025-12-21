@@ -1,6 +1,6 @@
 import { X, ShoppingCart, Package } from "lucide-react";
-import { UseCart } from "../context/UseCart";
-import { useAuth } from "../hooks/useAuth";
+import { UseCart } from "../context/UseCart.jsx";
+import { useAuth } from "../hooks/useAuth.jsx";
 import { Link } from "react-router-dom";
 
 export default function NotificationPanel({ isOpen, onClose }) {

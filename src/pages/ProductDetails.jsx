@@ -13,8 +13,8 @@ import {
   Minus,
   Plus,
 } from "lucide-react";
-import { UseCart } from "../context/UseCart";
-import ProductCard from "../components/ProductCard";
+import { UseCart } from "../context/UseCart.jsx";
+import ProductCard from "../components/ProductCard.jsx";
 
 export default function ProductDetails() {
   const { id } = useParams();

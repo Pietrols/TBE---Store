@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { UseCart } from "../context/UseCart";
-import { useAuth } from "../hooks/useAuth";
+import { UseCart } from "../context/UseCart.jsx";
+import { useAuth } from "../hooks/useAuth.jsx";
 import { useNavigate } from "react-router-dom";
 import { CreditCard, Smartphone, Building, CheckCircle } from "lucide-react";
 

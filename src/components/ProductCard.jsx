@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { UseCart } from "../context/UseCart";
+import { UseCart } from "../context/UseCart.jsx";
 import { ShoppingCart } from "lucide-react";
 
 export default function ProductCard({ product, circular = false }) {

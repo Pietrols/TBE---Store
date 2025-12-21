@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/ProductCard.jsx";
 import { Clock, Zap, TrendingUp, Percent } from "lucide-react";
 
 export default function Deals() {

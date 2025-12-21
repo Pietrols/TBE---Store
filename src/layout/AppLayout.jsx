@@ -1,11 +1,11 @@
 import { Outlet, Link } from "react-router-dom";
 import { Bell, ShoppingCart, User, LogOut } from "lucide-react";
-import { UseCart } from "../context/UseCart";
-import { useAuth } from "../hooks/useAuth";
+import { UseCart } from "../context/UseCart.jsx";
+import { useAuth } from "../hooks/useAuth.jsx";
 import { useState } from "react";
-import LoginModal from "../components/LoginModal";
-import SignUpModal from "../components/SignUpModal";
-import NotificationPanel from "../components/NotificationPanel";
+import LoginModal from "../components/LoginModal.jsx";
+import SignUpModal from "../components/SignUpModal.jsx";
+import NotificationPanel from "../components/NotificationPanel.jsx";
 
 export default function AppLayout() {
   const { cartItems } = UseCart();

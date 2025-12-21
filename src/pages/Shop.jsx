@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import UseProducts from "../api/products";
-import ProductCard from "../components/ProductCard";
+import UseProducts from "../api/products.jsx";
+import ProductCard from "../components/ProductCard.jsx";
 import { Search, SlidersHorizontal, Grid3x3, List } from "lucide-react";
 
 export default function Shop() {

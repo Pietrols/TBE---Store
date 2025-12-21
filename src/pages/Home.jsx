@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import useCategoryProducts from "../hooks/useCategoryProducts";
-import ProductCard from "../components/ProductCard";
-import SignUpModal from "../components/SignUpModal";
+import useCategoryProducts from "../hooks/useCategoryProducts.jsx";
+import ProductCard from "../components/ProductCard.jsx";
+import SignUpModal from "../components/SignUpModal.jsx";
 
 export default function Home() {
   const [showSignUp, setShowSignUp] = useState(false);

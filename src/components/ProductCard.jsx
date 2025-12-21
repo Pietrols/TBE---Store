@@ -20,7 +20,7 @@ export default function ProductCard({ product, circular = false }) {
     >
       <div
         className={`relative ${
-          circular ? "w-40 h-40" : "h-48"
+          circular ? "w-45 h-45" : "h-48"
         } overflow-hidden ${circular ? "rounded-full" : "rounded-t-lg"}`}
       >
         <img

@@ -29,27 +29,32 @@ export default function AppLayout() {
 
             <div className="flex items-center gap-6">
               {currentUser ? (
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 md:gap-4">
                   <button
                     onClick={logout}
-                    className="hover:bg-indigo-600 
-               transition-colors duration-200 ease-in-out 
-               cursor-pointer font-bold py-2 px-2 rounded"
+                    className="hover:bg-indigo-600 transition-colors duration-200 ease-in-out cursor-pointer font-bold py-2 px-2 md:px-3 rounded text-sm md:text-base"
+                    title="Logout"
                   >
-                    <LogOut size={20} />
+                    <LogOut size={18} className="md:hidden" />
+                    <span className="hidden md:inline">Logout</span>
                   </button>
                 </div>
               ) : (
-                <button
-                  onClick={() => setShowLogin(true)}
-                  className="hover:bg-indigo-600 
-               transition-colors duration-200 ease-in-out 
-               cursor-pointer font-bold py-2 px-2 rounded"
-                >
-                  Sign up or Log in
-                </button>
+                <div className="flex flex-col gap-2 md:flex-row md:gap-3">
+                  <button
+                    onClick={() => setShowLogin(true)}
+                    className="hover:bg-indigo-600 transition-colors duration-200 ease-in-out cursor-pointer font-bold py-1.5 px-2 rounded text-xs md:text-base whitespace-nowrap bg-blue-600 text-white"
+                  >
+                    Sign In
+                  </button>
+                  <button
+                    onClick={() => setShowSignup(true)}
+                    className="hover:bg-indigo-600 transition-colors duration-200 ease-in-out cursor-pointer font-bold py-1.5 px-2 rounded text-xs md:text-base whitespace-nowrap border border-blue-600 text-blue-600"
+                  >
+                    Sign Up
+                  </button>
+                </div>
               )}
-
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => setShowNotifications(!showNotifications)}

@@ -100,10 +100,10 @@ export default function AppLayout() {
           </div>
         </div>
 
-        <div className="bg-gray-900 shadow-md py-4 px-4">
+        <div className="bg-gray-900 shadow-md py-3 px-4 md:py-4">
           <div className="max-w-7xl mx-auto flex justify-center">
-            <div className="flex w-full max-w-3xl">
-              <select className="border border-gray-300  rounded-l-md px-4 py-2  bg-white text-gray-900 font-normal textfocus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div className="flex w-full max-w-3xl gap-2 md:gap-0">
+              <select className="hidden md:block border border-gray-300 rounded-l-md px-3 md:px-4 py-2 bg-white text-gray-900 font-normal text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option>All Categories</option>
                 <option>Electronics</option>
                 <option>Fashion</option>
@@ -111,10 +111,10 @@ export default function AppLayout() {
               </select>
               <input
                 type="text"
-                placeholder="Search for anything..."
-                className="flex-1 border-t border-b  px-4 py-2 text-gray-900 font-normal bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Search..."
+                className="flex-1 border-t border-b md:border-t-0 md:border-b-0 px-3 md:px-4 py-2 text-gray-900 font-normal text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              <button className="bg-blue-500 text-white px-8 py-2 rounded-r-md hover:bg-blue-700 transition-colors">
+              <button className="bg-blue-500 text-white px-4 md:px-8 py-2 rounded-r-md hover:bg-blue-700 transition-colors text-sm md:text-base whitespace-nowrap">
                 Search
               </button>
             </div>

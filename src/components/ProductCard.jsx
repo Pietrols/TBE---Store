@@ -6,8 +6,8 @@ export default function ProductCard({ product, circular = false }) {
   const { addToCart } = UseCart();
 
   const handleAddToCart = (e) => {
-    e.preventDefault(); // Prevent navigation when clicking add to cart
-    e.stopPropagation(); // Stop event from bubbling up
+    e.preventDefault();
+    e.stopPropagation();
     addToCart(product);
   };
 
@@ -15,19 +15,26 @@ export default function ProductCard({ product, circular = false }) {
     <Link
       to={`/product/${product.id}`}
       className={`group block bg-white rounded-lg shadow-md hover:shadow-xl transition-all ${
-        circular ? "w-40 h-40" : ""
+        circular ? "w-35 h-35" : ""
       }`}
     >
+      {/* Image Container - Shorter rectangular shape to fit text below */}
       <div
-        className={`relative ${
-          circular ? "w-45 h-45" : "h-48"
-        } overflow-hidden ${circular ? "rounded-full" : "rounded-t-lg"}`}
+        className={`relative overflow-hidden transition-transform duration-300 ${
+          circular
+            ? "w-35 h-35 rounded-full"
+            : "w-full aspect-square rounded-t-lg bg-gray-100"
+        }`}
       >
         <img
-          src={product.thumbnail}
+          src={product.thumbnail || product.images?.[0]}
           alt={product.title}
-          className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-300`}
+          className="w-90% h-90% object-cover"
+          onError={(e) => {
+            e.target.src = "https://via.placeholder.com/300?text=No+Image";
+          }}
         />
+
         {/* Quick Add to Cart Button */}
         {!circular && (
           <button
@@ -49,20 +56,20 @@ export default function ProductCard({ product, circular = false }) {
 
       {!circular && (
         <div className="p-4">
-          <h3 className="font-semibold text-gray-800 truncate group-hover:text-blue-600 transition-colors">
+          <h3 className="font-semibold text-gray-800 truncate group-hover:text-blue-600 transition-colors text-sm md:text-base">
             {product.title}
           </h3>
-          <p className="text-sm text-gray-500 truncate mt-1">
+          <p className="text-xs md:text-sm text-gray-500 truncate mt-1">
             {product.brand || product.category}
           </p>
           <div className="flex items-center justify-between mt-2">
-            <p className="text-xl font-bold text-gray-900">
+            <p className="text-lg md:text-xl font-bold text-gray-900">
               ${product.price.toFixed(2)}
             </p>
             {product.rating && (
               <div className="flex items-center">
                 <span className="text-yellow-500 mr-1">★</span>
-                <span className="text-sm text-gray-600">
+                <span className="text-xs md:text-sm text-gray-600">
                   {product.rating.toFixed(1)}
                 </span>
               </div>
